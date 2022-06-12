@@ -5,7 +5,7 @@ import { Modal } from './components/modal';
 import { useState, useEffect } from 'react';
 
 export const App = () => {
-  const notes = [
+  const [notes, setNotes] = useState<Note[]>([
     {
       title: 'Макароны',
       description:
@@ -17,11 +17,12 @@ export const App = () => {
       description: 'Забрать рюкзак у Антона',
       tags: ['рюкзак'],
     },
-  ];
-
+  ]);
   const [currentNote, setCurrentNote] = useState<Note | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalMode, setModalMode] = useState<ModalMode>('show');
+  const [toggleFlag, setToggleFlag] = useState<boolean>(false);
 
   // const data = {
   //   prop: 'value',
@@ -49,18 +50,26 @@ export const App = () => {
 
   const openModal = (index: number, mode: ModalMode) => {
     setModalMode(mode);
+    setActiveIndex(index);
     setCurrentNote(notes[index]);
+    setToggleFlag(!toggleFlag);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
+  const addTag = (noteIndex: number, tagText: string) => {
+    const tempNotes = [...notes];
+    tempNotes[noteIndex].tags.push(tagText);
+    setNotes([...tempNotes]);
+  };
+
   useEffect(() => {
     if (currentNote) {
       setIsModalOpen(true);
     }
-  }, [currentNote]);
+  }, [currentNote, toggleFlag]);
 
   return (
     <>
@@ -86,6 +95,8 @@ export const App = () => {
           closeModal={closeModal}
           modalMode={modalMode}
           currentNote={currentNote}
+          addTag={addTag}
+          activeIndex={activeIndex as number}
         />
       )}
     </>

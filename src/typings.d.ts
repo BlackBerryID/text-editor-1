@@ -16,6 +16,8 @@ type ModalProps = {
   closeModal: () => void;
   modalMode: ModalMode;
   currentNote: Note;
+  addTag: (tagIndex: number, tagText: string) => void;
+  activeIndex: number;
 };
 
-type ModalMode = 'show' | 'edit';
+type ModalMode = 'show' | 'edit' | 'addTag';

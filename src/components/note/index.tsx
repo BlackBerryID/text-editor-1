@@ -28,7 +28,12 @@ export const Note = ({ note: { title, tags }, index, openModal }: NoteProps) => 
         {tags.map((tag, index) => (
           <Chip className="tag" key={tag + index} label={`#${tag}`} variant="outlined" />
         ))}
-        <IconButton>
+        <IconButton
+          onClick={(e) => {
+            e.stopPropagation();
+            openModal(index, 'addTag');
+          }}
+        >
           <AddCircleOutlineIcon />
         </IconButton>
       </div>
