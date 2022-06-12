@@ -31,7 +31,7 @@ body {
     justify-content: space-between;
     height: 100px;
     width: 100%;
-    margin: 0 auto;
+    margin: 0 auto 20px;
     border-bottom: 5px solid #ccc;
   }
 
@@ -45,5 +45,9 @@ body {
 
   &_notes {
     margin-top: 50px;
+  }
+
+  &_search {
+    width: 100%;
   }
 }

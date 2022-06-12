@@ -1,4 +1,4 @@
-import { Paper, Button } from '@mui/material';
+import { Paper, Button, TextField } from '@mui/material';
 import './index.scss';
 import { Note } from './components/note';
 import { Modal } from './components/modal';
@@ -23,6 +23,7 @@ export const App = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalMode, setModalMode] = useState<ModalMode>('show');
   const [toggleFlag, setToggleFlag] = useState<boolean>(false);
+  const [filterParam, setFilterParam] = useState<string>('');
 
   // const data = {
   //   prop: 'value',
@@ -92,6 +93,15 @@ export const App = () => {
     setNotes([...tempNotes]);
   };
 
+  const filterNotes = (searchParam: string) => {
+    if (!searchParam) return notes;
+    let tempNotes = [...notes];
+    tempNotes = tempNotes.filter((tempNote) =>
+      tempNote.tags.some((tag) => tag.includes(searchParam))
+    );
+    return tempNotes;
+  };
+
   useEffect(() => {
     if (currentNote) {
       setIsModalOpen(true);
@@ -116,8 +126,14 @@ export const App = () => {
               Create a note
             </Button>
           </div>
+          <TextField
+            className="editor_search"
+            label="Search notes by tags"
+            value={filterParam}
+            onChange={(e) => setFilterParam(e.target.value)}
+          />
           <div className="editor_notes">
-            {notes.map((note, index) => (
+            {filterNotes(filterParam).map((note, index) => (
               <Note
                 note={note}
                 index={index}
