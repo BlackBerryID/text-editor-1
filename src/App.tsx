@@ -65,6 +65,12 @@ export const App = () => {
     setNotes([...tempNotes]);
   };
 
+  const deleteTag = (noteIndex: number, tagIndex: number) => {
+    const tempNotes = [...notes];
+    tempNotes[noteIndex].tags.splice(tagIndex, 1);
+    setNotes([...tempNotes]);
+  };
+
   useEffect(() => {
     if (currentNote) {
       setIsModalOpen(true);
@@ -83,7 +89,13 @@ export const App = () => {
           </div>
           <div className="editor_notes">
             {notes.map((note, index) => (
-              <Note note={note} index={index} key={note.title + index} openModal={openModal} />
+              <Note
+                note={note}
+                index={index}
+                key={note.title + index}
+                openModal={openModal}
+                deleteTag={deleteTag}
+              />
             ))}
           </div>
         </Paper>

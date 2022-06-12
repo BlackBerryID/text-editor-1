@@ -8,6 +8,7 @@ type NoteProps = {
   note: Note;
   index: number;
   openModal: (index: number, mode: ModalMode) => void;
+  deleteTag: (noteIndex: number, tagIndex: number) => void;
 };
 
 type ModalProps = {

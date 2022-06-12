@@ -4,7 +4,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Paper, IconButton, Chip } from '@mui/material';
 import './note.scss';
 
-export const Note = ({ note: { title, tags }, index, openModal }: NoteProps) => {
+export const Note = ({ note: { title, tags }, index, openModal, deleteTag }: NoteProps) => {
   return (
     <Paper className="editor_note" id={String(index)} onClick={() => openModal(index, 'show')}>
       <div className="editor_note_main-wrapper">
@@ -25,8 +25,14 @@ export const Note = ({ note: { title, tags }, index, openModal }: NoteProps) => 
         </div>
       </div>
       <div className="editor_note_tags-wrapper">
-        {tags.map((tag, index) => (
-          <Chip className="tag" key={tag + index} label={`#${tag}`} variant="outlined" />
+        {tags.map((tag, i) => (
+          <Chip
+            className="tag"
+            key={tag + i}
+            label={`#${tag}`}
+            variant="outlined"
+            onDelete={() => deleteTag(index, i)}
+          />
         ))}
         <IconButton
           onClick={(e) => {
