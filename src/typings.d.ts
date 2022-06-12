@@ -7,7 +7,7 @@ type Note = {
 type NoteProps = {
   note: Note;
   index: number;
-  openModal: (index: number, mode: ModalMode) => void;
+  openModal: (mode: ModalMode, index: number) => void;
   deleteTag: (noteIndex: number, tagIndex: number) => void;
 };
 
@@ -19,6 +19,7 @@ type ModalProps = {
   currentNote: Note;
   addTag: (tagIndex: number, tagText: string) => void;
   activeIndex: number;
+  addNote: (note: Note) => void;
 };
 
-type ModalMode = 'show' | 'edit' | 'addTag';
+type ModalMode = 'show' | 'edit' | 'addTag' | 'addNote';

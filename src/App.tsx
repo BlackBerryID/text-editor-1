@@ -18,7 +18,7 @@ export const App = () => {
       tags: ['рюкзак'],
     },
   ]);
-  const [currentNote, setCurrentNote] = useState<Note | null>(null);
+  const [currentNote, setCurrentNote] = useState<Note | null>(notes[0]);
   const [activeIndex, setActiveIndex] = useState<number>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalMode, setModalMode] = useState<ModalMode>('show');
@@ -48,10 +48,12 @@ export const App = () => {
   // <button onClick={() => readData()}>READ</button>
   // <button onClick={() => writeData(data)}>WRITE</button>
 
-  const openModal = (index: number, mode: ModalMode) => {
+  const openModal = (mode: ModalMode, index?: number) => {
+    if (index !== undefined) {
+      setActiveIndex(index);
+      setCurrentNote(notes[index]);
+    }
     setModalMode(mode);
-    setActiveIndex(index);
-    setCurrentNote(notes[index]);
     setToggleFlag(!toggleFlag);
   };
 
@@ -71,11 +73,19 @@ export const App = () => {
     setNotes([...tempNotes]);
   };
 
+  const addNote = (note: Note) => {
+    setNotes([...notes, note]);
+  };
+
   useEffect(() => {
     if (currentNote) {
       setIsModalOpen(true);
     }
   }, [currentNote, toggleFlag]);
+
+  useEffect(() => {
+    setIsModalOpen(false);
+  }, []);
 
   return (
     <>
@@ -83,7 +93,11 @@ export const App = () => {
         <Paper className="editor">
           <div className="editor_header">
             <h1 className="editor_title">Your notes</h1>
-            <Button className="editor_create-btn" variant="outlined">
+            <Button
+              className="editor_create-btn"
+              variant="outlined"
+              onClick={() => openModal('addNote')}
+            >
               Create a note
             </Button>
           </div>
@@ -109,6 +123,7 @@ export const App = () => {
           currentNote={currentNote}
           addTag={addTag}
           activeIndex={activeIndex as number}
+          addNote={addNote}
         />
       )}
     </>

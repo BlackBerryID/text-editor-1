@@ -6,7 +6,7 @@ import './note.scss';
 
 export const Note = ({ note: { title, tags }, index, openModal, deleteTag }: NoteProps) => {
   return (
-    <Paper className="editor_note" id={String(index)} onClick={() => openModal(index, 'show')}>
+    <Paper className="editor_note" id={String(index)} onClick={() => openModal('show', index)}>
       <div className="editor_note_main-wrapper">
         {title}
         <div className="button-wrapper">
@@ -14,7 +14,7 @@ export const Note = ({ note: { title, tags }, index, openModal, deleteTag }: Not
             color="info"
             onClick={(e) => {
               e.stopPropagation();
-              openModal(index, 'edit');
+              openModal('edit', index);
             }}
           >
             <EditIcon />
@@ -37,7 +37,7 @@ export const Note = ({ note: { title, tags }, index, openModal, deleteTag }: Not
         <IconButton
           onClick={(e) => {
             e.stopPropagation();
-            openModal(index, 'addTag');
+            openModal('addTag', index);
           }}
         >
           <AddCircleOutlineIcon />

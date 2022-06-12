@@ -17,17 +17,21 @@ export const Modal = ({
   currentNote,
   addTag,
   activeIndex,
+  addNote,
 }: ModalProps) => {
   const [noteTitle, setNoteTitle] = useState<string>();
   const [noteDescription, setNoteDescription] = useState<string>();
   const [tagText, setTagText] = useState<string>('');
 
   useEffect(() => {
-    setNoteTitle(currentNote.title);
-    setNoteDescription(currentNote.description);
-  }, [currentNote]);
-
-  const saveHandler = modalMode === 'edit' ? () => {} : addTag;
+    if (modalMode !== 'addNote') {
+      setNoteTitle(currentNote.title);
+      setNoteDescription(currentNote.description);
+    } else {
+      setNoteTitle('');
+      setNoteDescription('');
+    }
+  }, [currentNote, modalMode]);
 
   return (
     <Dialog
@@ -40,10 +44,11 @@ export const Modal = ({
       aria-describedby="dialog-description"
     >
       <DialogTitle id="dialog-title">
-        {modalMode === 'edit' ? (
+        {modalMode === 'edit' || modalMode === 'addNote' ? (
           <TextField
             multiline
             fullWidth
+            label="Note title"
             value={noteTitle}
             onChange={(e) => setNoteTitle(e.target.value)}
           />
@@ -54,18 +59,20 @@ export const Modal = ({
       <DialogContent className="dialog-content_text" id="dialog-description">
         {modalMode === 'show' ? (
           description
-        ) : modalMode === 'edit' ? (
+        ) : modalMode === 'edit' || modalMode === 'addNote' ? (
           <TextField
             multiline
             fullWidth
+            label="Note description"
             value={noteDescription}
             onChange={(e) => setNoteDescription(e.target.value)}
+            sx={{ mt: '10px' }}
           />
         ) : (
           <TextField
             multiline
             fullWidth
-            label="Write the tag text"
+            label="Tag text"
             value={tagText}
             onChange={(e) => setTagText(e.target.value)}
             sx={{ marginTop: '10px' }}
@@ -73,10 +80,24 @@ export const Modal = ({
         )}
       </DialogContent>
       <DialogActions>
-        {modalMode === 'show' ? null : (
+        {modalMode === 'show' ? null : modalMode === 'addTag' ? (
           <Button
             onClick={() => {
-              saveHandler(activeIndex, tagText);
+              addTag(activeIndex, tagText);
+              closeModal();
+              setTagText('');
+            }}
+          >
+            Save
+          </Button>
+        ) : (
+          <Button
+            onClick={() => {
+              addNote({
+                title: noteTitle || 'empty',
+                description: noteDescription || 'empty',
+                tags: [],
+              });
               closeModal();
               setTagText('');
             }}
