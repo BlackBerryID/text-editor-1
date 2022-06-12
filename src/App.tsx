@@ -1,6 +1,8 @@
 import { Paper, Button } from '@mui/material';
 import './index.scss';
 import { Note } from './components/note';
+import { Modal } from './components/modal';
+import { useState, useEffect } from 'react';
 
 export const App = () => {
   const notes = [
@@ -13,6 +15,9 @@ export const App = () => {
       description: 'Забрать рюкзак у Антона',
     },
   ];
+
+  const [currentNote, setCurrentNote] = useState<Note | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   // const data = {
   //   prop: 'value',
@@ -35,26 +40,48 @@ export const App = () => {
   //   console.log(data);
   // };
 
-  {
-    /* <button onClick={() => readData()}>READ</button>
-      <button onClick={() => writeData(data)}>WRITE</button> */
-  }
+  // <button onClick={() => readData()}>READ</button>
+  // <button onClick={() => writeData(data)}>WRITE</button>
+
+  const changeCurrentNote = (index: number) => {
+    setCurrentNote(notes[index]);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  useEffect(() => {
+    if (currentNote) {
+      setIsModalOpen(true);
+    }
+  }, [currentNote]);
 
   return (
-    <div className="container">
-      <Paper className="editor">
-        <div className="editor_header">
-          <h1 className="editor_title">Your notes</h1>
-          <Button className="editor_create-btn" variant="outlined">
-            Create a note
-          </Button>
-        </div>
-        <div className="editor_notes">
-          {notes.map((note, index) => (
-            <Note note={note} index={index} key={note.title + index} />
-          ))}
-        </div>
-      </Paper>
-    </div>
+    <>
+      <div className="container">
+        <Paper className="editor">
+          <div className="editor_header">
+            <h1 className="editor_title">Your notes</h1>
+            <Button className="editor_create-btn" variant="outlined">
+              Create a note
+            </Button>
+          </div>
+          <div className="editor_notes">
+            {notes.map((note, index) => (
+              <Note
+                note={note}
+                index={index}
+                key={note.title + index}
+                changeCurrentNote={changeCurrentNote}
+              />
+            ))}
+          </div>
+        </Paper>
+      </div>
+      {currentNote && (
+        <Modal note={currentNote as Note} isModalOpen={isModalOpen} closeModal={closeModal} />
+      )}
+    </>
   );
 };
