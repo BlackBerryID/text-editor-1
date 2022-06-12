@@ -20,6 +20,7 @@ type ModalProps = {
   addTag: (tagIndex: number, tagText: string) => void;
   activeIndex: number;
   addNote: (note: Note) => void;
+  editNote: (note: Note, noteIndex: number) => void;
 };
 
 type ModalMode = 'show' | 'edit' | 'addTag' | 'addNote';

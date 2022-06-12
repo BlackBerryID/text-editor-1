@@ -77,6 +77,16 @@ export const App = () => {
     setNotes([...notes, note]);
   };
 
+  const editNote = (note: Note, noteIndex: number) => {
+    console.log('edit');
+    const tempNotes = [...notes];
+    tempNotes[noteIndex] = {
+      ...note,
+      tags: tempNotes[noteIndex].tags,
+    };
+    setNotes([...tempNotes]);
+  };
+
   useEffect(() => {
     if (currentNote) {
       setIsModalOpen(true);
@@ -124,6 +134,7 @@ export const App = () => {
           addTag={addTag}
           activeIndex={activeIndex as number}
           addNote={addNote}
+          editNote={editNote}
         />
       )}
     </>

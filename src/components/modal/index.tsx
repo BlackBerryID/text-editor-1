@@ -18,6 +18,7 @@ export const Modal = ({
   addTag,
   activeIndex,
   addNote,
+  editNote,
 }: ModalProps) => {
   const [noteTitle, setNoteTitle] = useState<string>();
   const [noteDescription, setNoteDescription] = useState<string>();
@@ -80,24 +81,25 @@ export const Modal = ({
         )}
       </DialogContent>
       <DialogActions>
-        {modalMode === 'show' ? null : modalMode === 'addTag' ? (
+        {modalMode === 'show' ? null : (
           <Button
             onClick={() => {
-              addTag(activeIndex, tagText);
-              closeModal();
-              setTagText('');
-            }}
-          >
-            Save
-          </Button>
-        ) : (
-          <Button
-            onClick={() => {
-              addNote({
-                title: noteTitle || 'empty',
-                description: noteDescription || 'empty',
-                tags: [],
-              });
+              modalMode === 'addTag'
+                ? addTag(activeIndex, tagText)
+                : modalMode === 'addNote'
+                ? addNote({
+                    title: noteTitle || 'empty',
+                    description: noteDescription || 'empty',
+                    tags: [],
+                  })
+                : editNote(
+                    {
+                      title: noteTitle || 'empty',
+                      description: noteDescription || 'empty',
+                      tags: [],
+                    },
+                    activeIndex
+                  );
               closeModal();
               setTagText('');
             }}
