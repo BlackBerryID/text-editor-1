@@ -78,12 +78,17 @@ export const App = () => {
   };
 
   const editNote = (note: Note, noteIndex: number) => {
-    console.log('edit');
     const tempNotes = [...notes];
     tempNotes[noteIndex] = {
       ...note,
       tags: tempNotes[noteIndex].tags,
     };
+    setNotes([...tempNotes]);
+  };
+
+  const deleteNote = (noteIndex: number) => {
+    const tempNotes = [...notes];
+    tempNotes.splice(noteIndex, 1);
     setNotes([...tempNotes]);
   };
 
@@ -119,6 +124,7 @@ export const App = () => {
                 key={note.title + index}
                 openModal={openModal}
                 deleteTag={deleteTag}
+                deleteNote={deleteNote}
               />
             ))}
           </div>
