@@ -60,6 +60,15 @@ export const Modal = ({
       <DialogContent className="dialog-content_text" id="dialog-description">
         {modalMode === 'show' ? (
           description
+            .split(' ')
+            .map((word) => {
+              if (word.startsWith('[')) {
+                return word.slice(1, word.length - 1);
+              } else {
+                return word;
+              }
+            })
+            .join(' ')
         ) : modalMode === 'edit' || modalMode === 'addNote' ? (
           <TextField
             multiline
