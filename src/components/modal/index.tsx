@@ -34,6 +34,10 @@ export const Modal = ({
     }
   }, [currentNote, modalMode]);
 
+  const highlightWord = (word: string) => {
+    return <span className="bold">{word}</span>;
+  };
+
   return (
     <Dialog
       open={isModalOpen}
@@ -65,7 +69,19 @@ export const Modal = ({
             multiline
             fullWidth
             label="Note description"
-            value={noteDescription}
+            value={noteDescription
+              ?.split(' ')
+              .map((word) => {
+                const isTagWord = currentNote.tags.some(
+                  (tag) => word.toLocaleLowerCase() === tag.toLocaleLowerCase()
+                );
+                if (isTagWord) {
+                  return `[${word}]`;
+                } else {
+                  return word;
+                }
+              })
+              .join(' ')}
             onChange={(e) => setNoteDescription(e.target.value)}
             sx={{ mt: '10px' }}
           />
