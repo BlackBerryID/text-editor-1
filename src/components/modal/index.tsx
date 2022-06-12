@@ -34,10 +34,6 @@ export const Modal = ({
     }
   }, [currentNote, modalMode]);
 
-  const highlightWord = (word: string) => {
-    return <span className="bold">{word}</span>;
-  };
-
   return (
     <Dialog
       open={isModalOpen}

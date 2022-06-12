@@ -64,9 +64,18 @@ export const App = () => {
 
   const editNote = (note: Note, noteIndex: number) => {
     const tempNotes = [...notes];
+    const newTags = note.description
+      .split(' ')
+      .filter((word) => word[0] === '#')
+      .map((word) => word.slice(1));
+    tempNotes[noteIndex].description = note.description
+      .split(' ')
+      .map((word) => (word[0] === '#' ? word.slice(1) : word))
+      .join(' ');
     tempNotes[noteIndex] = {
-      ...note,
-      tags: tempNotes[noteIndex].tags,
+      title: note.title,
+      description: tempNotes[noteIndex].description,
+      tags: tempNotes[noteIndex].tags.concat(newTags),
     };
     setNotes([...tempNotes]);
   };
