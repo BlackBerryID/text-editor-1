@@ -1,3 +1,6 @@
+import { Paper, Button } from '@mui/material';
+import './index.scss';
+
 export const App = () => {
   // const data = {
   //   prop: 'value',
@@ -20,10 +23,21 @@ export const App = () => {
   //   console.log(data);
   // };
 
+  {
+    /* <button onClick={() => readData()}>READ</button>
+      <button onClick={() => writeData(data)}>WRITE</button> */
+  }
+
   return (
-    <>
-      {/* <button onClick={() => readData()}>READ</button>
-      <button onClick={() => writeData(data)}>WRITE</button> */}
-    </>
+    <div className="container">
+      <Paper className="editor">
+        <div className="editor_header">
+          <h1 className="editor_title">Your notes</h1>
+          <Button className="editor_create-btn" variant="outlined">
+            Create a note
+          </Button>
+        </div>
+      </Paper>
+    </div>
   );
 };
