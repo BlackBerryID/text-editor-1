@@ -8,7 +8,8 @@ export const App = () => {
   const notes = [
     {
       title: 'Макароны',
-      description: 'Купить макароны в магазине',
+      description:
+        'Купить макароны в магазине. Но это не всё. Было бы не плохо сходить в сад и набрать яблок чтобы сварить яблочный компот.',
     },
     {
       title: 'Рюкзак',
@@ -18,6 +19,7 @@ export const App = () => {
 
   const [currentNote, setCurrentNote] = useState<Note | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [modalMode, setModalMode] = useState<ModalMode>('show');
 
   // const data = {
   //   prop: 'value',
@@ -43,7 +45,8 @@ export const App = () => {
   // <button onClick={() => readData()}>READ</button>
   // <button onClick={() => writeData(data)}>WRITE</button>
 
-  const changeCurrentNote = (index: number) => {
+  const openModal = (index: number, mode: ModalMode) => {
+    setModalMode(mode);
     setCurrentNote(notes[index]);
   };
 
@@ -69,18 +72,19 @@ export const App = () => {
           </div>
           <div className="editor_notes">
             {notes.map((note, index) => (
-              <Note
-                note={note}
-                index={index}
-                key={note.title + index}
-                changeCurrentNote={changeCurrentNote}
-              />
+              <Note note={note} index={index} key={note.title + index} openModal={openModal} />
             ))}
           </div>
         </Paper>
       </div>
       {currentNote && (
-        <Modal note={currentNote as Note} isModalOpen={isModalOpen} closeModal={closeModal} />
+        <Modal
+          note={currentNote as Note}
+          isModalOpen={isModalOpen}
+          closeModal={closeModal}
+          modalMode={modalMode}
+          currentNote={currentNote}
+        />
       )}
     </>
   );

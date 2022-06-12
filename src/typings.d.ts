@@ -6,11 +6,15 @@ type Note = {
 type NoteProps = {
   note: Note;
   index: number;
-  changeCurrentNote: (index: number) => void;
+  openModal: (index: number, mode: ModalMode) => void;
 };
 
 type ModalProps = {
   note: Note;
   isModalOpen: boolean;
   closeModal: () => void;
+  modalMode: ModalMode;
+  currentNote: Note;
 };
+
+type ModalMode = 'show' | 'edit';
