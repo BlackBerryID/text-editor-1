@@ -1,7 +1,19 @@
 import { Paper, Button } from '@mui/material';
 import './index.scss';
+import { Note } from './components/note';
 
 export const App = () => {
+  const notes = [
+    {
+      title: 'Макароны',
+      description: 'Купить макароны в магазине',
+    },
+    {
+      title: 'Рюкзак',
+      description: 'Забрать рюкзак у Антона',
+    },
+  ];
+
   // const data = {
   //   prop: 'value',
   // };
@@ -36,6 +48,11 @@ export const App = () => {
           <Button className="editor_create-btn" variant="outlined">
             Create a note
           </Button>
+        </div>
+        <div className="editor_notes">
+          {notes.map((note, index) => (
+            <Note note={note} index={index} key={note.title + index} />
+          ))}
         </div>
       </Paper>
     </div>

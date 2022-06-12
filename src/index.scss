@@ -23,13 +23,14 @@ body {
   position: relative;
   width: 600px;
   min-height: 800px;
+  padding: 30px 50px;
 
   &_header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 100px;
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
     border-bottom: 5px solid #ccc;
   }
@@ -40,5 +41,9 @@ body {
 
   &_create-btn {
     margin-right: 40px;
+  }
+
+  &_notes {
+    margin-top: 50px;
   }
 }
