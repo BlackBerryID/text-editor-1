@@ -1,0 +1,53 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-color: #fbeec1;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1600px;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
+.editor {
+  position: relative;
+  width: 600px;
+  min-height: 800px;
+  padding: 30px 50px;
+
+  &_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    width: 100%;
+    margin: 0 auto 20px;
+    border-bottom: 5px solid #ccc;
+  }
+
+  &_title {
+    font-size: 34px;
+  }
+
+  &_create-btn {
+    margin-right: 40px;
+  }
+
+  &_notes {
+    margin-top: 50px;
+  }
+
+  &_search {
+    width: 100%;
+  }
+}

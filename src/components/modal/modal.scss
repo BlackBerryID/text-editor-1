@@ -1,0 +1,7 @@
+.dialog-content_text {
+  width: 500px;
+
+  @media (max-width: 650px) {
+    width: 310px;
+  }
+}

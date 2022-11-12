@@ -1,0 +1,29 @@
+.editor_note {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 24px;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+
+  &_main-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  &_tags-wrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .tag {
+    margin-right: 5px;
+    cursor: pointer;
+  }
+}
