@@ -1,2 +1,2 @@
-# text-editor-1
-text editor of notes with tags
+# Todo app
+[Deploy](https://text-editor-v1.netlify.app/)
