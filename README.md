@@ -6,7 +6,7 @@
 - наряжать ёлку игрушками и гирляндой
 
 #### Что я использовал:
-- Webpack
+- React
 - Typescript
+- Material UI
 - Scss
-- Native dnd
